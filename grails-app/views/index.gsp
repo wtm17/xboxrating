@@ -24,8 +24,8 @@
 <div id="page-body" role="index">
 
     <div id="sn-site-wrapper" ng-app="NAT_XboxRating">
-        <ng-include src="'/NAT_XboxRating/angularjs/navbar/navbar.html'"></ng-include>
-        <ng-include src="'/NAT_XboxRating/angularjs/navbar/about.html'"></ng-include>
+        <ng-include src="'/angularjs/navbar/navbar.html'"></ng-include>
+        <ng-include src="'/angularjs/navbar/about.html'"></ng-include>
         <div class="container" id="mainPage"  ng-view ng-cloak>
         </div>
     </div>
