@@ -20,6 +20,8 @@ class BootStrap {
         g7.save()
         def g8 = new Game(title: "Guitar Hero", owned: true, created: new Date())
         g8.save()
+        def g9 = new Game(title: "Minecraft", owned: true, created: new Date())
+        g9.save()
 
 
         10.times {new Vote(game: g1, created: new Date()).save()}
