@@ -9,6 +9,7 @@ class Game {
     Date created
 
     static constraints = {
+        title unique: true
         owned defaultValue: false
         created defaultValue: new Date()
     }
