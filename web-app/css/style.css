@@ -1,0 +1,15 @@
+body { padding-top: 70px; }
+.alert-danger {
+    position: absolute;
+    z-index: 1000;
+}
+
+.animate-enter {
+    -webkit-transition: 500ms linear all; /* Chrome */
+    transition: 500ms linear all;
+    opacity: 0;
+}
+
+.animate-enter.animate-enter-active {
+    opacity: 1;
+}

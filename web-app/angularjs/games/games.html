@@ -1,0 +1,78 @@
+<div>
+    <ng-include src="'/NAT_XboxRating/angularjs/navbar/admin.html'"></ng-include>
+    <div class="row" style="padding:20px">
+        <div class="col-lg-4">
+            <input placeholder="Search by title" type="text" class="form-control" ng-model="search.title"/>
+        </div>
+        <div class="col-lg-3">
+            <div class="alert alert-danger alert-dismissable" ng-show="isWeekend">
+                <button type="button" class="close" ng-click="isWeekend=false" aria-hidden="true">&times;</button>
+                You can't vote on the weekend, go outside and play!
+            </div>
+            <div  class="alert alert-danger alert-dismissable"  ng-show="alreadyVoted">
+                <button type="button" class="close" ng-click="alreadyVoted=false" aria-hidden="true">&times;</button>
+                You already voted today, stop voting and get back to work!
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <form ng-submit="addGame()" name="newGame">
+                <div class="input-group">
+                    <input placeholder="Enter title" type="text" name="title" class="form-control" ng-model="newGameTitle" required/>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary" ng-disabled="!newGameTitle || isDuplicateTitle()"><i class="fa fa-gamepad"></i> Add New Game</button>
+                    </span>
+                </div>
+                <div class="alert alert-danger" ng-show="isDuplicateOwned">We already own {{newGameTitle}}, go play it now!</div>
+                <div class="alert alert-danger" ng-show="isDuplicateNotOwned">Someone already requested {{newGameTitle}}, go vote for it now!</div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Nav tabs -->
+    <div class="panel panel-default">
+        <div class="panel-body">
+        <div class="tabbable tabs-below">
+            <ul class="nav nav-pills">
+                <li ng-class="{active: selectedTab == 1}">
+                    <a href="" ng-click="selectedTab = 1;"><i class="fa fa-gift"></i> Games We Want</a>
+                </li>
+                <li ng-class="{active: selectedTab == 2}">
+                    <a href="" ng-click="selectedTab = 2;"><i class="fa fa-folder-open"></i> Games We Own</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content" ng-show="selectedTab == 1">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Title</th>
+                        <th>Date Added</th>
+                        <th>Votes</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="game in games | filter:{owned:'false'} | filter:search | orderBy:'votes.length':true" ng-animate="'animate'">
+                        <td>{{game.title}}</td>
+                        <td>{{game.created | date:'short'}}</td>
+                        <td>{{game.votes.length}}</td>
+                        <td><button ng-click="addVote(game.id)" class="btn btn-success"><i class="fa fa-plus"></i> Vote</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-content" ng-show="selectedTab == 2">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Title</th>
+                        <th>Date Added</th>
+                    </tr>
+                    <tr ng-repeat="game in games | filter:{owned:'true'} | filter:search | orderBy:'title':false" ng-animate="'animate'">
+                        <td>{{game.title}}</td>
+                        <td>{{game.created | date:'short'}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
