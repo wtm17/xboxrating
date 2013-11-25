@@ -11,6 +11,7 @@
             $scope.isDuplicateNotOwned = false;
             $scope.isWeekend = false;
             $scope.alreadyVoted = false;
+            $scope.unexpectedError = false;
 
             /**
              * Resets the page data
@@ -84,6 +85,8 @@
                         $cookieStore.put('canVoteAgainDate', $scope.getNextVotingTime());
                         $location.path('/');
                         $scope.reset();
+                    }, function() {
+                        $scope.unexpectedError = true;
                     });
                 }
             };
@@ -92,12 +95,16 @@
                     Games.addVote({id: id}, function() {
                         $cookieStore.put('canVoteAgainDate', $scope.getNextVotingTime());
                         $scope.reset();
+                    }, function() {
+                        $scope.unexpectedError = true;
                     });
                 }
             };
             $scope.setOwned = function(id) {
                 Games.setOwned({id: id}, function() {
                     $scope.reset();
+                }, function() {
+                    $scope.unexpectedError = true;
                 });
             };
 

@@ -13,6 +13,11 @@
                 <button type="button" class="close" ng-click="alreadyVoted=false" aria-hidden="true">&times;</button>
                 You already voted today, stop voting and get back to work!
             </div>
+            <div  class="alert alert-danger alert-dismissable"  ng-show="unexpectedError">
+                <button type="button" class="close" ng-click="unexpectedError=false" aria-hidden="true">&times;</button>
+                An unexpected error occurred. Reload the page and try your request again. If the problem persists,
+                please notify a site administrator.
+            </div>
         </div>
         <div class="col-lg-5">
             <form ng-submit="addGame()" name="newGame">
