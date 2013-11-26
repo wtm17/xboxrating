@@ -61,8 +61,8 @@
              * Returns true if the user can vote today
              */
             $scope.canVoteToday = function(){
-                //Can't vote on weekends
                 var today = new Date();
+                //Can't vote on weekends
                 if(today.getDay() == 0 || today.getDay() == 6) {
                     $scope.isWeekend = true;
                     return false;
@@ -82,10 +82,12 @@
             $scope.addGame = function() {
                 if ($scope.canVoteToday()) {
                     Games.save({title: $scope.newGameTitle}, function() {
+                        //On success
                         $cookieStore.put('canVoteAgainDate', $scope.getNextVotingTime());
                         $location.path('/');
                         $scope.reset();
                     }, function() {
+                        //On failure
                         $scope.unexpectedError = true;
                     });
                 }
@@ -93,17 +95,21 @@
             $scope.addVote = function(id) {
                 if ($scope.canVoteToday()) {
                     Games.addVote({id: id}, function() {
+                        //On success
                         $cookieStore.put('canVoteAgainDate', $scope.getNextVotingTime());
                         $scope.reset();
                     }, function() {
+                        //On failure
                         $scope.unexpectedError = true;
                     });
                 }
             };
             $scope.setOwned = function(id) {
                 Games.setOwned({id: id}, function() {
+                    //On success
                     $scope.reset();
                 }, function() {
+                    //On failure
                     $scope.unexpectedError = true;
                 });
             };
